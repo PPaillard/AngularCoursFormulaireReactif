@@ -1,0 +1,32 @@
+<h2>Liste des articles</h2>
+<div *ngIf="articles.length > 0; else noArticles">
+  <div *ngFor="let article of articles">
+    <p>Reference : {{ article.reference }}</p>
+    <p>Nom : {{ article.nom }}</p>
+    <p>Description : {{ article.description }}</p>
+    <p>Prix : {{ article.prix }}</p>
+  </div>
+</div>
+<ng-template #noArticles>Pas d'articles dans la liste</ng-template>
+
+<form (ngSubmit)="myForm.valid && onSubmit()" [formGroup]="articleForm" #myForm="ngForm">
+  <label for="reference">
+    Reference :
+    <input type="text" name="reference" formControlName="reference" />
+  </label>
+  <div *ngIf="myForm.submitted && articleForm.controls.reference.errors?.pattern">{{articleForm.controls.reference.errors?.pattern}}</div>
+  <label for="nom">
+    Nom :
+    <input type="text" name="nom" formControlName="nom" />
+  </label>
+  <label for="description">
+    Description :
+    <input type="text" name="description" formControlName="description" />
+  </label>
+  <label for="prix">
+    Prix :
+    <input type="number" name="prix" formControlName="prix" />
+  </label>
+  <button type="submit">SOUMETTRE</button>
+  <button type="reset">RESET</button>
+</form>
